@@ -60,10 +60,10 @@ h1 {
 }
 
 /* 할 일 글자(span)에 대한 디자인 추가 */
-#todo-list span {
-    flex-grow: 1; /* 남는 빈 공간을 글자 영역이 100% 흡수해서 차지함 */
-    text-align: left; /* 글자는 무조건 왼쪽부터 시작하도록 고정 */
-    margin-right: 10px; /* 글자가 너무 길어질 때 버튼과 겹치지 않게 여백 주기 */
+.todo-text {
+    flex-grow: 1;
+    text-align: left;
+    margin-right: 10px;
 }
 
 #todo-list button {
