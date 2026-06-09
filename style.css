@@ -3,6 +3,7 @@ body {
     background-color: white;
     display: flex;
     flex-direction: column;
+    align-items: center;
     padding: 50px, 20px;
     margin: 30;
 }
@@ -39,20 +40,38 @@ h1 {
 #todo-list {
     margin-top: 30px;
     width: 100%;
-    max-width: 400px;
+    max-width: 350px;
 }
 
 #todo-list > div {
-    background-color: white;
-    padding: 15px 20px;
+    background-color: rgb(255, 241, 116);
+    padding: 10px 20px;
     border-radius: 12px;
     box-shadow: 0 3px 4px rgba(0, 0, 0, 0.05); /* 카드에 옅은 그림자 효과 */
     margin-bottom: 12px;
     display: flex; /* 요소들을 가로로 배치 */
     justify-content: space-between; /* 양쪽 끝으로 밀어내기 */
     align-items: center; /* 세로 기준 가운데 정렬 */
+    border: 2px solid #000000;
 }
 
 #todo-list button:hover {
-    background-color: #e0e0e0;
+    background-color: #cecece;
+}
+
+/* 할 일 글자(span)에 대한 디자인 추가 */
+#todo-list span {
+    flex-grow: 1; /* 남는 빈 공간을 글자 영역이 100% 흡수해서 차지함 */
+    text-align: left; /* 글자는 무조건 왼쪽부터 시작하도록 고정 */
+    margin-right: 10px; /* 글자가 너무 길어질 때 버튼과 겹치지 않게 여백 주기 */
+}
+
+#todo-list button {
+    background-color: #ffffff;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 6px;
+    cursor: pointer;
+    margin-left: 5px; /* 👈 이 숫자를 5px에서 15px(또는 20px)로 늘려봐! */
+    color: #555;
 }

@@ -13,41 +13,49 @@ function saveTodos() {
 
 // 3. 화면을 그리는 함수 (배열에 있는 데이터를 바탕으로 카드를 만듭니다)
 function renderTodos() {
-    todoListElement.innerHTML = ''; // 화면이 중복해서 그려지지 않게 일단 싹 비웁니다.
+    todoListElement.innerHTML = ''; 
 
-    // 배열(todos) 안에 있는 각각의 할 일(todo)마다 카드를 만듭니다.
     todos.forEach(function(todo) {
         const newCard = document.createElement('div');
         
         const textSpan = document.createElement('span');
-        textSpan.textContent = todo.text; // 사용자가 입력했던 글자
+        textSpan.textContent = todo.text; 
         
-        // 데이터의 isCompleted가 true라면 취소선을 긋습니다.
+        // 완료 버튼 먼저 만들기 (글자 이름을 바꿔주기 위해)
+        const completeBtn = document.createElement('button');
+
+        // ✨ 여기서부터 완료 상태에 따른 시각적 효과 강화 ✨
         if (todo.isCompleted === true) {
             textSpan.style.textDecoration = 'line-through';
-            textSpan.style.color = 'gray';
+            textSpan.style.color = '#aaa'; // 글자를 좀 더 연한 회색으로
+            
+            // 카드 전체의 디자인도 바꿈!
+            newCard.style.backgroundColor = '#f8f9fa'; // 카드 배경을 연한 회색으로
+            newCard.style.opacity = '0.6'; // 카드를 전체적으로 60% 정도 투명하게 만듦 (핵심!)
+            
+            completeBtn.textContent = '취소'; // 버튼 글자를 '취소'로 변경
+        } else {
+            // 완료가 안 된 상태일 때 (기본 상태)
+            completeBtn.textContent = '완료'; 
         }
 
-        // 완료 버튼
-        const completeBtn = document.createElement('button');
-        completeBtn.textContent = '완료';
+        // 완료 버튼 클릭 이벤트
         completeBtn.addEventListener('click', function() {
-            todo.isCompleted = !todo.isCompleted; // 완료 상태를 반대로 뒤집습니다 (true <-> false)
-            saveTodos();    // 데이터가 바뀌었으니 창고에 다시 저장!
-            renderTodos();  // 바뀐 데이터를 바탕으로 화면 다시 그리기!
+            todo.isCompleted = !todo.isCompleted; 
+            saveTodos();    
+            renderTodos();  
         });
 
-        // 삭제 버튼
+        // 삭제 버튼 (이전과 동일)
         const deleteBtn = document.createElement('button');
         deleteBtn.textContent = '삭제';
         deleteBtn.addEventListener('click', function() {
             if (confirm('정말 삭제하시겠습니까?')) {
-                // 삭제할 카드만 쏙 빼고 배열을 새로 만듭니다 (filter 기능)
                 todos = todos.filter(function(t) {
                     return t.id !== todo.id; 
                 });
-                saveTodos();    // 삭제된 배열을 창고에 덮어쓰기!
-                renderTodos();  // 화면 다시 그리기!
+                saveTodos();    
+                renderTodos();  
             }
         });
 
