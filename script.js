@@ -21,6 +21,8 @@ function renderTodos() {
         const textSpan = document.createElement('span');
         textSpan.textContent = todo.text; 
         
+        textSpan.classList.add('todo-text');
+        
         const completeBtn = document.createElement('button');
 
         // ✨ [요청 반영] 완료 상태에 따른 완전 새로운 디자인 로직 ✨
