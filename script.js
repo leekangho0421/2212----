@@ -21,32 +21,36 @@ function renderTodos() {
         const textSpan = document.createElement('span');
         textSpan.textContent = todo.text; 
         
-        // 완료 버튼 먼저 만들기 (글자 이름을 바꿔주기 위해)
         const completeBtn = document.createElement('button');
 
-        // ✨ 여기서부터 완료 상태에 따른 시각적 효과 강화 ✨
+        // ✨ [요청 반영] 완료 상태에 따른 완전 새로운 디자인 로직 ✨
         if (todo.isCompleted === true) {
+            // 1. 카드 전체에 연두색 테마 클래스 적용 (CSS에서 정의한 것)
+            newCard.classList.add('card-completed');
+
+            // 2. 글자에 취소선과 연한 색 적용 (이전보다 더 연하게)
             textSpan.style.textDecoration = 'line-through';
-            textSpan.style.color = '#aaa'; // 글자를 좀 더 연한 회색으로
+            textSpan.style.color = '#bbb'; 
+
+            // 3. [핵심] 글자 왼쪽에 꽂을 '연두색 체크 아이콘' span 만들기
+            const checkIcon = document.createElement('span');
+            checkIcon.textContent = '✓'; // 체크 모양 문자
+            checkIcon.classList.add('check-icon'); // CSS에서 정의한 아이콘 스타일 적용
+
+            // 4. [조립 변경] 카드 안에 체크 아이콘을 먼저 넣고, 그 뒤에 글자를 넣음
+            newCard.appendChild(checkIcon); 
             
-            // 카드 전체의 디자인도 바꿈!
-            newCard.style.backgroundColor = '#f8f9fa'; // 카드 배경을 연한 회색으로
-            newCard.style.opacity = '0.6'; // 카드를 전체적으로 60% 정도 투명하게 만듦 (핵심!)
-            
-            completeBtn.textContent = '취소'; // 버튼 글자를 '취소'로 변경
+            completeBtn.textContent = '취소'; 
         } else {
-            // 완료가 안 된 상태일 때 (기본 상태)
             completeBtn.textContent = '완료'; 
         }
 
-        // 완료 버튼 클릭 이벤트
         completeBtn.addEventListener('click', function() {
             todo.isCompleted = !todo.isCompleted; 
             saveTodos();    
             renderTodos();  
         });
 
-        // 삭제 버튼 (이전과 동일)
         const deleteBtn = document.createElement('button');
         deleteBtn.textContent = '삭제';
         deleteBtn.addEventListener('click', function() {
@@ -59,7 +63,8 @@ function renderTodos() {
             }
         });
 
-        newCard.appendChild(textSpan);
+        // 5. 이미 위에서 조립된 체크 아이콘 + 글자 뒤에, 버튼들을 조립
+        newCard.appendChild(textSpan); // (todo.isCompleted가 true라면 checkIcon 뒤에 붙음)
         newCard.appendChild(completeBtn);
         newCard.appendChild(deleteBtn);
         todoListElement.appendChild(newCard);
